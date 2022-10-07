@@ -1,0 +1,70 @@
+$ sudo nano /etc/ssh/sshd_config
+$ sudo service ssh restart
+
+Installing and configuring UFW
+Install UFW
+$ apt-get install ufw
+
+Enable
+$ sudo ufw enable
+
+Check the status
+$ sudo ufw status numbered
+
+Configure the rules
+$ sudo ufw allow ssh
+
+Configure the port rules
+$ sudo ufw allow 4242
+
+Delete the new rule:
+$ sudo ufw status numbered
+$ sudo ufw delete (that number, for example 5 or 6)
+
+$ sudo apt-get install libpam-pwquality
+$ sudo nano /etc/pam.d/common-password
+$ sudo nano /etc/login.defs
+
+$ sudo nano /etc/sudoers
+
+Adding user in sudo group
+$ su -
+$ usermod -aG sudo your_username
+Check if user is in sudo group
+$ getent group sudo
+Give privilege as a su.
+Open sudoers file:
+$ sudo visudo
+Add this line in file:
+your_username    ALL=(ALL) ALL
+
+$ sudo groupadd user42
+Check if group created:
+$ getent group
+2.8. Create user and assign into group
+Check the all local users:
+$ cut -d: -f1 /etc/passwd
+Create the user
+$ sudo adduser new_username
+Assign an user into “evaluating” group
+$ sudo usermod -aG user42 your_username
+$ sudo usermod -aG evaluating your_new_username
+Check if the user is in group
+$ getent group user42
+$ getent group evaluating
+Check which groups user account belongs:
+$ groups
+Check if password rules working in users:
+$ chage -l your_new_username
+
+Check current hostname
+$ hostnamectl
+Change the hostname
+$ hostnamectl set-hostname new_hostname
+Change /etc/hosts file
+$ sudo nano /etc/hosts
+Change old_hostname with new_hostname:
+127.0.0.1       localhost
+127.0.0.1       new_hostname
+Reboot and check the change
+$ sudo reboot
